@@ -54,6 +54,17 @@ class Polygon:
             result += det
         return abs(result/2)
 
+    @staticmethod
+    def regular_pentagon(radius):
+        polygon = Polygon()
+        for i in range(5):
+            x=radius*math.cos(math.radians(72*i))
+            y=radius*math.sin(math.radians(72*i))
+            polygon.add(Point(x, y))
+        return polygon
+
+
+
 
 
 def main():
@@ -66,6 +77,9 @@ def main():
     polygon.add(Point(300, 400))
 
    # print(polygon.svg())
-    print(polygon.area())
+    #print(polygon.area())
+
+    pentagon=Polygon.regular_pentagon(150)
+    print(pentagon.svg())
 
 main()
