@@ -9,6 +9,10 @@ class Point:
     def __str__(self) -> str:
         return f"Point({self.x}, {self.y})"
 
+    def translate(self,x,y):
+        self.x+=x
+        self.y+=y
+
 
 class Segment:
     def __init__(self, p1, p2):
@@ -49,22 +53,23 @@ class Polygon:
         result = 0
         for i in range(len(self.vertices)):
             pa = self.vertices[i]
-            pn = self.vertices[(i+1)%len(self.vertices)]
-            det = (pa.x*pn.y) - (pa.y*pn.x)
+            pn = self.vertices[(i + 1) % len(self.vertices)]
+            det = (pa.x * pn.y) - (pa.y * pn.x)
             result += det
-        return abs(result/2)
+        return abs(result / 2)
 
     @staticmethod
     def regular_pentagon(radius):
         polygon = Polygon()
         for i in range(5):
-            x=radius*math.cos(math.radians(72*i))
-            y=radius*math.sin(math.radians(72*i))
+            x = radius * math.cos(math.radians(72 * i))
+            y = radius * math.sin(math.radians(72 * i))
             polygon.add(Point(x, y))
         return polygon
 
-
-
+    def translate(self, x, y):
+        for vertex in self.vertices:
+            vertex.translate(x,y)
 
 
 def main():
@@ -76,10 +81,12 @@ def main():
     polygon.add(q)
     polygon.add(Point(300, 400))
 
-   # print(polygon.svg())
-    #print(polygon.area())
+    # print(polygon.svg())
+    # print(polygon.area())
 
-    pentagon=Polygon.regular_pentagon(150)
+    pentagon = Polygon.regular_pentagon(150)
+    pentagon.translate(200,300)
     print(pentagon.svg())
+
 
 main()
