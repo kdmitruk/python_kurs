@@ -59,6 +59,16 @@ class Polygon:
             result += det
         return abs(result / 2)
 
+    def bottom_right(self):
+        max_x=0
+        max_y=0
+        for vertex in self.vertices:
+            max_x=max(max_x, vertex.x)
+            max_y=max(max_y, vertex.y)
+        return Point(max_x, max_y)
+
+
+
     @staticmethod
     def regular_pentagon(radius,style):
         polygon = Polygon(style)
@@ -89,15 +99,23 @@ class Scene:
     def add(self, shape):
         self.shapes.append(shape)
     def save(self, path):
+        rb=self.bottom_right()
         file=open(path,"w")
         file.write("<html>\n<body>\n")
-        file.write('<svg height="1000" width="1000">\n')
+        file.write(f'<svg height="{rb.y}" width="{rb.x}">\n')
         for shape in self.shapes:
             file.write(shape.svg()+'\n')
         file.write("</svg>\n</body>\n</html>")
         file.close()
 
-
+    def bottom_right(self):
+        max_x=0
+        max_y=0
+        for shape in self.shapes:
+            br=shape.bottom_right()
+            max_x=max(max_x, br.x)
+            max_y=max(max_y, br.y)
+        return Point(max_x, max_y)
 
 
 
