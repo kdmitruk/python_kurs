@@ -83,6 +83,22 @@ class Style:
         return f'style="fill:{self.fill_color};stroke:{self.stroke_color};stroke-width:{self.stroke_width}"'
 
 
+class Scene:
+    def __init__(self):
+        self.shapes = []
+    def add(self, shape):
+        self.shapes.append(shape)
+    def save(self, path):
+        file=open(path,"w")
+        file.write("<html>\n<body>\n")
+        file.write('<svg height="1000" width="1000">\n')
+        for shape in self.shapes:
+            file.write(shape.svg()+'\n')
+        file.write("</svg>\n</body>\n</html>")
+        file.close()
+
+
+
 
 
 
@@ -100,7 +116,12 @@ def main():
 
     pentagon = Polygon.regular_pentagon(150, Style(fill_color="green", stroke_color="red"))
     pentagon.translate(200,300)
-    print(pentagon.svg())
+    #print(pentagon.svg())
+    scene=Scene()
+    scene.add(polygon)
+    scene.add(pentagon)
+    scene.save("plik.html")
+
 
 
 main()
