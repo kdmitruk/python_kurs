@@ -80,7 +80,7 @@ class Style:
         #style="fill:lime;stroke:purple;stroke-width:1"
 
     def svg(self):
-        return f'style="fill:{self.fill_color};stroke:{self.stroke_color};stroke_width:{self.stroke_width}"'
+        return f'style="fill:{self.fill_color};stroke:{self.stroke_color};stroke-width:{self.stroke_width}"'
 
 
 
