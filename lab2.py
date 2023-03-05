@@ -15,6 +15,7 @@ def people_from_csv(path):
         people.append(person_from_line(line.rstrip()))
     return people
 
+
 def solve_Josephus_(people, step, index):
     if len(people) == 1:
         return people[0]
@@ -27,18 +28,15 @@ def solve_Josephus(people, step):
     return solve_Josephus_(people.copy(), step, 0)
 
 
+def sort_by_age(people):
+    people.sort(key=lambda person:person.date_of_birth)
+
 def main():
-    # p = Person("Jan", "Kowalski", "1.2.1970")
-    # p.last_name = "Nowak"
-    # print(p.last_name)
-    # person_str = "Kial,Toffic,1998-07-25"
-    # p=person_from_line(person_str)
-    # print(p)
     people = people_from_csv("people.csv")
+    sort_by_age(people)
     for person in people:
         print(person)
-    filtered = solve_Josephus(people, 3)
-    print(filtered)
+
 
 if __name__ == "__main__":
     main()
