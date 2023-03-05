@@ -29,18 +29,18 @@ def solve_Josephus(people, step):
 
 
 def sort_by_age(people):
-    people.sort(key=lambda person:person.date_of_birth)
-
-def merge_sort(arr):
+    #people.sort(key=lambda person:person.date_of_birth)
+    merge_sort(people, key=lambda person:person.date_of_birth)
+def merge_sort(arr, key):
     if len(arr)>1:
         mid=len(arr)//2
         left=arr[:mid]
         right=arr[mid:]
-        merge_sort(left)
-        merge_sort(right)
+        merge_sort(left, key)
+        merge_sort(right, key)
         i=j=k=0
         while i<len(left) and j<len(right):
-            if left[i]<right[j]:
+            if key(left[i])<key(right[j]):
                 arr[k]=left[i]
                 i+=1
             else:
@@ -62,9 +62,9 @@ def main():
     sort_by_age(people)
     for person in people:
         print(person)
-    arr=[2, 7, 19, -5, -26]
-    merge_sort(arr)
-    print(arr)
+    # arr=[2, 7, 19, -5, -26]
+    # merge_sort(arr, lambda value:value%2)
+    # print(arr)
 
 if __name__ == "__main__":
     main()
