@@ -12,10 +12,15 @@ class Person:
         return f"Person({self.first_name}, {self.last_name}, {self.date_of_birth})"
 
 class Account(Person):
-    def __init__(self, person):
+    def __init__(self, person, site):
         super().__init__(person.first_name, person.last_name, person.date_of_birth)
-        self.login = person.first_name[0].lower()+person.last_name.lower()
-
+        base_login = person.first_name[0].lower()+person.last_name.lower()
+        mod_login =base_login
+        index=1
+        while mod_login in site.logins():
+            mod_login=base_login+str(index)
+            index+=1
+        self.login=mod_login
 class Site():
     def __init__(self):
         self.accounts={}
@@ -103,8 +108,8 @@ def main():
     # people=filter_by_last_name(people,"ko no")
     site=Site()
     for person in people:
-        site.add(Account(person))
-    print(site.get("acolbert"))
+        site.add(Account(person,site))
+    #print(site.get("acolbert"))
     print(site.logins())
         #print(Account(person))
     # arr=[2, 7, 19, -5, -26]
