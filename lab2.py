@@ -15,14 +15,16 @@ def people_from_csv(path):
         people.append(person_from_line(line.rstrip()))
     return people
 
-def solve_Josephus(people, step, index):
+def solve_Josephus_(people, step, index):
     if len(people) == 1:
         return people[0]
     index=(index+step)%len(people)
     print("kill " + str(people.pop(index)))
-    return solve_Josephus(people, step, index)
+    return solve_Josephus_(people, step, index)
 
 
+def solve_Josephus(people, step):
+    return solve_Josephus_(people.copy(), step, 0)
 
 
 def main():
@@ -35,9 +37,8 @@ def main():
     people = people_from_csv("people.csv")
     for person in people:
         print(person)
-    solve_Josephus(people, 3, 0)
-    for person in people:
-        print(person)
+    filtered = solve_Josephus(people, 3)
+    print(filtered)
 
 if __name__ == "__main__":
     main()
