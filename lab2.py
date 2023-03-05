@@ -23,7 +23,8 @@ def main():
     # p=person_from_line(person_str)
     # print(p)
     people = people_from_csv("people.csv")
-    print(people)
+    for person in people:
+        print(person)
 
 if __name__ == "__main__":
     main()
