@@ -9,9 +9,9 @@ class Point:
     def __str__(self) -> str:
         return f"Point({self.x}, {self.y})"
 
-    def translate(self,x,y):
-        self.x+=x
-        self.y+=y
+    def translate(self, x, y):
+        self.x += x
+        self.y += y
 
 
 class Segment:
@@ -29,10 +29,15 @@ class Segment:
         return f'<line x1="{self.p1.x}" y1="{self.p1.y}" x2="{self.p2.x}" y2="{self.p2.y}" style="stroke:black" />'
 
 
-class Polygon:
+class Shape:
     def __init__(self, style):
+        self.style = style
+
+class Polygon(Shape):
+    def __init__(self, style):
+        super().__init__(style)
         self.vertices = []
-        self.style=style
+        
 
     def add(self, vertex):
         self.vertices.append(vertex)
@@ -60,17 +65,15 @@ class Polygon:
         return abs(result / 2)
 
     def bottom_right(self):
-        max_x=0
-        max_y=0
+        max_x = 0
+        max_y = 0
         for vertex in self.vertices:
-            max_x=max(max_x, vertex.x)
-            max_y=max(max_y, vertex.y)
+            max_x = max(max_x, vertex.x)
+            max_y = max(max_y, vertex.y)
         return Point(max_x, max_y)
 
-
-
     @staticmethod
-    def regular_pentagon(radius,style):
+    def regular_pentagon(radius, style):
         polygon = Polygon(style)
         for i in range(5):
             x = radius * math.cos(math.radians(72 * i))
@@ -80,14 +83,15 @@ class Polygon:
 
     def translate(self, x, y):
         for vertex in self.vertices:
-            vertex.translate(x,y)
+            vertex.translate(x, y)
+
 
 class Style:
     def __init__(self, fill_color="transparent", stroke_color="black", stroke_width=1):
-        self.fill_color=fill_color
-        self.stroke_color=stroke_color
-        self.stroke_width=stroke_width
-        #style="fill:lime;stroke:purple;stroke-width:1"
+        self.fill_color = fill_color
+        self.stroke_color = stroke_color
+        self.stroke_width = stroke_width
+        # style="fill:lime;stroke:purple;stroke-width:1"
 
     def svg(self):
         return f'style="fill:{self.fill_color};stroke:{self.stroke_color};stroke-width:{self.stroke_width}"'
@@ -96,26 +100,28 @@ class Style:
 class Scene:
     def __init__(self):
         self.shapes = []
+
     def add(self, shape):
         self.shapes.append(shape)
+
+    def bottom_right(self):
+        max_x = 0
+        max_y = 0
+        for shape in self.shapes:
+            br = shape.bottom_right()
+            max_x = max(max_x, br.x)
+            max_y = max(max_y, br.y)
+        return Point(max_x, max_y)
+
     def save(self, path):
-        rb=self.bottom_right()
-        file=open(path,"w")
+        rb = self.bottom_right()
+        file = open(path, "w")
         file.write("<html>\n<body>\n")
         file.write(f'<svg height="{rb.y}" width="{rb.x}">\n')
         for shape in self.shapes:
-            file.write(shape.svg()+'\n')
+            file.write(shape.svg() + '\n')
         file.write("</svg>\n</body>\n</html>")
         file.close()
-
-    def bottom_right(self):
-        max_x=0
-        max_y=0
-        for shape in self.shapes:
-            br=shape.bottom_right()
-            max_x=max(max_x, br.x)
-            max_y=max(max_y, br.y)
-        return Point(max_x, max_y)
 
 
 
@@ -133,13 +139,12 @@ def main():
     # print(polygon.area())
 
     pentagon = Polygon.regular_pentagon(150, Style(fill_color="green", stroke_color="red"))
-    pentagon.translate(200,300)
-    #print(pentagon.svg())
-    scene=Scene()
+    pentagon.translate(200, 300)
+    # print(pentagon.svg())
+    scene = Scene()
     scene.add(polygon)
     scene.add(pentagon)
     scene.save("plik.html")
-
 
 
 main()
