@@ -16,6 +16,18 @@ class Account(Person):
         super().__init__(person.first_name, person.last_name, person.date_of_birth)
         self.login = person.first_name[0].lower()+person.last_name.lower()
 
+class Site():
+    def __init__(self):
+        self.accounts={}
+    def add(self, account):
+        self.accounts.update({account.login: account})
+    def get(self, login):
+        return self.accounts[login]
+    def logins(self):
+        return self.accounts.keys()
+
+
+
     def __str__(self):
         return f"Account({self.login}, {self.first_name}, {self.last_name}, {self.date_of_birth})"
 
@@ -89,8 +101,12 @@ def main():
     people = people_from_csv("people.csv")
     sort_by_age(people)
     # people=filter_by_last_name(people,"ko no")
+    site=Site()
     for person in people:
-        print(Account(person))
+        site.add(Account(person))
+    print(site.get("acolbert"))
+    print(site.logins())
+        #print(Account(person))
     # arr=[2, 7, 19, -5, -26]
     # merge_sort(arr, lambda value:value%2)
     # print(arr)
