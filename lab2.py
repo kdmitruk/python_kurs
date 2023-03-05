@@ -57,11 +57,17 @@ def merge_sort(arr, key):
             k += 1
 
 
+def filter_by_last_name(people, substr):
+    return list(filter(lambda person:substr.lower() in person.last_name.lower(),people))
+
+
 def main():
     people = people_from_csv("people.csv")
     sort_by_age(people)
+    people=filter_by_last_name(people,"pp")
     for person in people:
         print(person)
+    print(people)
     # arr=[2, 7, 19, -5, -26]
     # merge_sort(arr, lambda value:value%2)
     # print(arr)
