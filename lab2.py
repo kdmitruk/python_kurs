@@ -57,14 +57,22 @@ def merge_sort(arr, key):
             k += 1
 
 
-def filter_by_last_name(people, substr):
+def filter_by_last_name_(people, substr):
     return list(filter(lambda person:substr.lower() in person.last_name.lower(),people))
+
+
+def filter_by_last_name(people, substr):
+    result=set()
+    for word in substr.split(" "):
+        result.update(filter_by_last_name_(people,word))
+    return list(result)
+
 
 
 def main():
     people = people_from_csv("people.csv")
     sort_by_age(people)
-    people=filter_by_last_name(people,"pp")
+    people=filter_by_last_name(people,"ko no")
     for person in people:
         print(person)
     print(people)
