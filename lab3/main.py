@@ -9,7 +9,8 @@ def main():
     #print(solve("2 7 + 3 / 14 3 - 4 * + 2 /"))
     #print(approximate_pi())
     #sd.draw_rect()
-    sd.draw_star()
+    #sd.draw_star()
+    sd.draw_reg_poly(11)
 
 if __name__ == "__main__":
     main()

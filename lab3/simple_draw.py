@@ -27,3 +27,16 @@ def draw_star():
         t.right(144)
 
     screen.exitonclick()
+
+
+def draw_reg_poly(n):
+    screen = turtle.Screen()
+    t = turtle.Turtle()
+
+    t.speed(1)
+
+    for _ in range(n):
+        t.forward(50)
+        t.left(360 / n)
+
+    screen.exitonclick()
