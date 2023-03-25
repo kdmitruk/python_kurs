@@ -16,3 +16,14 @@ def draw_rect():
 
     screen.exitonclick()
 
+def draw_star():
+    screen = turtle.Screen()
+    t = turtle.Turtle()
+
+    t.speed(1)
+
+    for _ in range(5):
+        t.forward(100)
+        t.right(144)
+
+    screen.exitonclick()
