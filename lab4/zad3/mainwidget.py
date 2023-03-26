@@ -15,7 +15,6 @@ class MainWidget(QWidget):
         brush = QBrush()
         brush.setColor(QColor(231, 236, 163))
         brush.setStyle(Qt.SolidPattern)
-        print(self.rect())
         painter.fillRect(self.rect(), brush)
         brush.setColor(QColor(131, 36, 163))
         painter.fillRect(QRect(self.playerPos.x()-10,self.playerPos.y()-10,20,20),brush)
@@ -32,4 +31,13 @@ class MainWidget(QWidget):
             self.playerPos.setY(self.playerPos.y()-step)
         if event.key() == Qt.Key_Down:
             self.playerPos.setY(self.playerPos.y()+step)
+
+        if self.playerPos.x() <= 0:
+            self.playerPos.setX(self.width()-1)
+        if self.playerPos.x() >= self.width():
+            self.playerPos.setX(0)
+        if self.playerPos.y() <= 0:
+            self.playerPos.setY(self.height()-1)
+        if self.playerPos.y() >= self.height():
+            self.playerPos.setY(0)
         self.update()
