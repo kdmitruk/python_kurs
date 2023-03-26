@@ -44,7 +44,6 @@ class MainWindow(QMainWindow):
     def onSaveAction(self):
         if self.path == "":
             self.onSaveAsAction()
-
         else:
             self.__save(self.path)
 
