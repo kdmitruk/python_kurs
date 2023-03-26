@@ -6,8 +6,23 @@ class MainWidget(QWidget):
     def __init__(self):
         super().__init__()
         self.setFixedSize(800, 800)
-        self.playerPos = QPoint(self.width()/2,self.height()/2)
+        self.playerPos = QPointF(self.width()/2,self.height()/2)
+        self.enemyPos = QPointF(0,0)
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.updateGameState)
+        self.timer.start(5)
 
+    def updateGameState(self):
+        step = 1
+        if self.enemyPos.x()<self.playerPos.x():
+            self.enemyPos.setX(self.enemyPos.x()+step*1.5)
+        else:
+            self.enemyPos.setX(self.enemyPos.x()-step*1.5)
+        if self.enemyPos.y()<self.playerPos.y():
+            self.enemyPos.setY(self.enemyPos.y()+step*1.5)
+        else:
+            self.enemyPos.setY(self.enemyPos.y()-step*1.5)
+        self.update()
 
     def paintEvent(self, event):
         painter = QPainter()
@@ -18,11 +33,12 @@ class MainWidget(QWidget):
         painter.fillRect(self.rect(), brush)
         brush.setColor(QColor(131, 36, 163))
         painter.fillRect(QRect(self.playerPos.x()-10,self.playerPos.y()-10,20,20),brush)
-
+        brush.setColor("blue")
+        painter.fillRect(QRect(self.enemyPos.x()-10,self.enemyPos.y()-10,20,20),brush)
         painter.end()
 
     def keyPressEvent(self, event):
-        step=5
+        step=6
         if event.key() == Qt.Key_Left:
             self.playerPos.setX(self.playerPos.x()-step)
         if event.key() == Qt.Key_Right:
@@ -40,4 +56,6 @@ class MainWidget(QWidget):
             self.playerPos.setY(self.height()-1)
         if self.playerPos.y() >= self.height():
             self.playerPos.setY(0)
+
+
         self.update()
