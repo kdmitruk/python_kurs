@@ -1,4 +1,4 @@
-from PySide2.QtWidgets import QApplication, QWidget, QPushButton
+from PySide2.QtWidgets import QApplication
 from mainwidget import MainWidget
 
 def main():
@@ -7,8 +7,6 @@ def main():
     window = MainWidget()
     window.show()
 
-    # button = QPushButton("Press me!", window)
-    # button.show()
 
     app.exec_()
 
