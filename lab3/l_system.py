@@ -41,12 +41,16 @@ def draw_l_system(t, instructions, angle, length):
             t.pu()
             t.goto(position)
             t.setheading(heading)
+            t.pd()
 
 def draw():
     screen = turtle.Screen()
     t = turtle.Turtle()
-
-    t.speed(100)
-    instructions = create_l_system(4, "X")
-    draw_l_system(t,instructions,25,2)
+    t.left(90)
+    t.pu()
+    t.back(200)
+    t.pd()
+    t.speed(5)
+    instructions = create_l_system(5, "X")
+    draw_l_system(t,instructions,25,5)
     screen.exitonclick()
