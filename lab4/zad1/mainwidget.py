@@ -1,5 +1,5 @@
 from PySide2.QtWidgets import QWidget, QPushButton, QLineEdit,\
-    QLabel, QVBoxLayout
+    QLabel, QVBoxLayout, QMessageBox
 
 
 class MainWidget(QWidget):
@@ -11,14 +11,15 @@ class MainWidget(QWidget):
         button.clicked.connect(self.onButtonClicked)
 
         self.edit = QLineEdit(self)
-        self.label = QLabel("tekst" ,self)
+        #self.label = QLabel("tekst" ,self)
 
         layout = QVBoxLayout(self)
         layout.addWidget(self.edit)
-        layout.addWidget(self.label)
+        #layout.addWidget(self.label)
         layout.addWidget(button)
 
 
     def onButtonClicked(self):
         editText = self.edit.text()
-        self.label.setText(editText)
+        #self.label.setText(editText)
+        QMessageBox.information(self, "Info", editText)
