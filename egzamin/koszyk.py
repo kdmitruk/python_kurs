@@ -1,3 +1,5 @@
+from produkt import Produkt
+
 class Koszyk:
     def __init__(self):
         self.__produkty = {}
@@ -7,3 +9,12 @@ class Koszyk:
             self.__produkty[produkt.get_nazwa()] = produkt,self.__produkty[produkt.get_nazwa()][1]+1
         else:
             self.__produkty[produkt.get_nazwa()] = produkt, 1
+
+    def wartosc(self, miesiac, rok):
+        if Produkt.waliduj_date(miesiac,rok):
+            suma=0
+            for produkt in self.__produkty.values():
+                suma+=produkt[0].cena(miesiac, rok)*produkt[1]
+            return suma
+
+        return None
